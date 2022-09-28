@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { FileUploadService } from 'src/app/Components/file-upload/file-upload.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -8,25 +8,34 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FileUploadComponent implements OnInit {
 
-  selectedFile!: File;
+  //shortLink: string = "";
+  loading: boolean = false;
+  file!: File;
 
-  constructor(private http: HttpClient) { }
+  constructor(private fileUploadService: FileUploadService) { }
 
   ngOnInit(): void {
   }
 
-  onFileSelected(event: any){
-    this.selectedFile = <File>event.target.files[0];
+  onChange(event: any){
+    this.file = <File>event.target.files[0];
   }
 
   onUpload(){
-    //const fd = new FormData();
-    //fd.append('csv', this.selectedFile, this.selectedFile.name)
-    //this.http.post('Backend url',fd)
-    //.subscribe(res => {
-    //  console.log(res)
-    //});
-    
+    this.loading = !this.loading;
+    console.log(this.file);
+    this.fileUploadService.upload(this.file).subscribe(
+      (event: any) =>{
+        if(typeof (event) === 'object'){
+          //this.shortLink = event.link;
+          this.loading = false;
+        }
+      }
+    );
+  }
+
+  routeToMl(){
+    window.location.href = "http://127.0.0.1:5000/plot.png";
   }
 
 }
