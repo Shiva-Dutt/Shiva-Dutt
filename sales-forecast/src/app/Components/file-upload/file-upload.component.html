@@ -1,0 +1,12 @@
+<div class  = "form-container" mat-elevation-z6>
+    <h1 class = "center">File Upload</h1>
+    <input type = "file" accept=".csv, .xlsx" (change)="onFileSelected($event)"/>
+    <div class = "center margin-top">
+        <button mat-raised-button color="primary" type = "submit" (click)="onUpload()"> Upload </button>
+    </div>
+</div>
+
+
+
+
+
