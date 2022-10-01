@@ -2,6 +2,7 @@
 # import necessary libraries and functions
 #from contextlib import _RedirectStream
 
+from asyncio.windows_events import NULL
 from datetime import datetime
 import os
 from pyexpat import model
@@ -31,9 +32,7 @@ matplotlib.rcParams['text.color'] = 'k'
 
 # creating a Flask app
 app = Flask(__name__)
-
-app.config['UPLOAD_FOLDER'] = 'D:/Desktop/upload'
-
+app.config['UPLOAD_FOLDER'] = 'D:/SHIVA/angular/apiConn'
 @app.route('/upload',methods = ['GET', 'POST'])
 def upload_File():
 
@@ -42,15 +41,16 @@ def upload_File():
         if 'file' not in request.files:
             
             return redirect(request.url)
+        global file
         file = request.files['file']
-        filename = secure_filename(file.filename)    
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
+        global fname
+        fname = secure_filename(file.filename)    
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], fname))
         return redirect(request.url)
     return 'File Uploaded'
 
 path = 'D:/Desktop/upload'
-full_path = os.path.join(path, os.listdir(path)[0])
+#full_path = os.path.join(path,fname)
 # on the terminal type: curl http://127.0.0.1:5000/
 # returns hello world when we use GET.
 # returns the data that we send when we use POST.
@@ -70,8 +70,8 @@ def create_figure():
     global length
     global breadth
     fig = Figure()
-    data = "hello world"
-    df = pd.read_csv(full_path,parse_dates =['Order Date'])
+    #data = "hello world"
+    df = pd.read_csv(fname,parse_dates =['Order Date'])
 
     furniture = df.loc[df['Category'] == 'Furniture']
     cols = ['Row ID', 'Order ID', 'Ship Date', 'Ship Mode', 'Customer ID', 'Customer Name', 'Segment', 'Country', 'City', 'State', 'Postal Code', 'Region', 'Product ID', 'Category', 'Sub-Category', 'Product Name', 'Quantity', 'Discount', 'Profit']
@@ -85,8 +85,6 @@ def create_figure():
 
     y = furniture['Sales'].resample('MS').mean()
     y.plot(figsize=(length,breadth))
-
-
     plt.show()
     
     #arima_model = ARIMA(df.value, order=(1,1,2))

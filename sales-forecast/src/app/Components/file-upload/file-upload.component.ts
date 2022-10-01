@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FileUploadService } from 'src/app/Components/file-upload/file-upload.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-file-upload',
@@ -12,7 +13,7 @@ export class FileUploadComponent implements OnInit {
   loading: boolean = false;
   file!: File;
 
-  constructor(private fileUploadService: FileUploadService) { }
+  constructor(private fileUploadService: FileUploadService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -26,16 +27,19 @@ export class FileUploadComponent implements OnInit {
     console.log(this.file);
     this.fileUploadService.upload(this.file).subscribe(
       (event: any) =>{
+        
         if(typeof (event) === 'object'){
           //this.shortLink = event.link;
           this.loading = false;
+          
         }
       }
     );
+    this.router.navigate(['/forecast'])
   }
 
-  routeToMl(){
-    window.location.href = "http://127.0.0.1:5000/plot.png";
-  }
+  //routeToMl(){
+    //window.location.href = "http://127.0.0.1:5000/plot.png";
+  //}
 
 }

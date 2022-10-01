@@ -1,7 +1,8 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './Components/login/login.component';
 import { FileUploadComponent } from './Components/file-upload/file-upload.component';
+import { SalesForecastComponent } from './Components/sales-forecast/sales-forecast.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: "upload",
     component: FileUploadComponent
+  },
+  {
+    path: "forecast",
+    component: SalesForecastComponent
   }
 ];
 

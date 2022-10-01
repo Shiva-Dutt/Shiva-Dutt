@@ -1,0 +1,22 @@
+<div class  = "form-container" mat-elevation-z6>
+    <form [formGroup]="form">
+        
+            <mat-form-field appearance="fill">
+                <mat-label>Choose forecast period</mat-label>
+                <mat-select>
+                    <mat-option value="6months">6 months</mat-option>
+                    <mat-option value="12months">12 months</mat-option>
+                    <mat-option value="2years">2 years</mat-option>
+                    <mat-option value="5years">5 years</mat-option>
+                </mat-select>  
+            </mat-form-field>
+        
+    </form>
+    <div class = "center margin-top">
+        <button mat-raised-button color="primary" (click)="onSubmit()" > Submit </button>
+    </div>
+    <div class = "center margin-top">
+        <button mat-raised-button color="primary" (click)="routeToMl()" > Show Forecast </button>
+    </div>
+</div>
+
